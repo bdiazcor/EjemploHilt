@@ -21,16 +21,14 @@ función o propiedad.
 
 En Android Studio, el código fuente se compila a bytecode para ejecutarse en la JVM (Java Virtual
 Machine), lo que permite que funcione en cualquier dispositivo Android. Ahora bien, la JVM no
-“entiende” el significado de @HiltAndroidApp: únicamente la detecta.
+“entiende” el significado de @HiltAndroidApp: únicamente lo detecta.
 
 Quien realmente le da sentido es Hilt, ya que incluye un procesador de anotaciones que, durante la
 compilación, genera automáticamente el código necesario para que la inyección de dependencias
 funcione correctamente.
 
 En concreto, @HiltAndroidApp le indica a Hilt que debe crear un contenedor global de dependencias
-asociado a la aplicación, y que permanecerá activo mientras la app esté en ejecución. Este contenedor
-se corresponde con el componente de mayor duración en Hilt (el equivalente al nivel singleton, que
-veremos más adelante).
+asociado a la aplicación, y que permanecerá activo mientras la app esté en ejecución.
 
 A partir de ese contenedor global, Hilt puede inyectar dependencias en elementos como Activities,
 Fragments o ViewModels.
@@ -41,6 +39,8 @@ contenedor principal y no se inyectará ninguna dependencia.
 
 
 @HiltAndroidApp
-//@Es una anotación que le indica a Hilt que esta es la clase principal de la aplicación
-//Es como si les
+
 class MyApplication: Application ()
+
+//Ahora vamos al Manifest y registramos la clase TareApp (android:name = ".MyApplication" para poder
+// usar Hilt en la aplicación.
