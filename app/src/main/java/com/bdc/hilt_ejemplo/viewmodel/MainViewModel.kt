@@ -27,10 +27,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    //@Inject: "necesitamos algo"
-    //@Module + @Provides: "Yo te lo doy"
-    //@InstallIn: "Estoy disponible para ayudarte a este nivel de la aplicación. El ciclo de vida
-    // más alto de Hilt".
+    //@Inject: estamos indicando a Hilt que "necesitamos algo", en ese caso un RepositorioSimulado
     private val repositorio: RepositorioSimulado
 ): ViewModel() { //Estamos heredando de ViewModel() porque necesitamos el ciclo de vida del ViewModel
     //Es decir que sobreviva a cambios de configuración y maneje la lógica en la interfaz de usuario.

@@ -11,41 +11,42 @@ import javax.inject.Singleton
  * En la clase vamos a colocar funciones anotadas con @Provides que enseñan
  * a Hilt como crear instancias de dependencias. Es decir, estamos indicando
  * a Hilt cómo crear objetos con las funciones con @Provides.
+ *
  * Esto se necesita porque hay casos donde Hilt no puede crear una instancia
  * automáticamente, como por ejemplo:
- * clases de librerias externas como Retrofit, Room o Firebase
- * Clases que no tienen un inyector con @Inject
- * Clases que necesitan argumentos personalizados que Hilt no conoce
+ * - clases de librerias externas como Retrofit, Room o Firebase
+ * - Clases que no tienen un inyector con @Inject
+ * - Clases que necesitan argumentos personalizados que Hilt no conoce
  *
  * @InstallIn al que pasamos un SingletonComponent:
- * @InstallIn indica en qué nivel del ciclo de vida estará disponible esa dependencia
- * SingletonComponent vive mientras esté activa la aplicación. Hilt creará una instancia
- * solo una vez y la reutilizará durante toda la aplicación. SingletonComponent es el
- * contenedor global o grafo de dependencias que vive durante toda la vida de la aplicación.
+ * - @InstallIn indica en qué nivel del ciclo de vida estará disponible esa dependencia
+ * - SingletonComponent vive mientras esté activa la aplicación.
+ * - Hilt creará una instancia  * solo una vez y la reutilizará durante toda la aplicación.
+ * SingletonComponent es el contenedor global o grafo de dependencias que vive durante toda la
+ * vida de la aplicación.
  * Todo lo que se registre aquí estará disponible desde que la app se inicia hasta que se cierra.
  * Es ideal para objetos que deben mantenerse como una única instancia como retrofit, repositorios,
  * etc.... Así evitamos recrearlos innecesariamente y ahorramos recursos.
  *
  * object: lo tenemos porque no necesitamos crear una instancia manualmente. Hilt se encarga de
- * registrarlo automáticamente gracias a la anotación @InstallIn (analogía  class vs object. Class es
- * el plan de un casa y object es la casa ya constuida con ese plano). Sin @InstallIn, tendríamos
+ * registrarlo automáticamente gracias a la anotación @InstallIn. Sin @InstallIn, tendríamos
  * que hacer val modulo = AppModulo() (Crear una instancia manualmente).
  *
- *  * Cuando Hilt detecta que alguien,
- * como por ejemplo un Viewodel necesita una instancia, busca en el grafo de dependencias que función
- * con la anotación @Provides puede entregarle.
+ * - Cuando Hilt detecta que alguien, como por ejemplo un Viewodel necesita una instancia,
+ *  busca en el grafo de dependencias que función con la anotación @Provides puede entregarle.
  *
- * @Provides: le decimos a Hilt que instancia debe usar, en este caso RepositorioSimulado es la
+ * - @Provides: le decimos a Hilt que instancia debe usar, en este caso RepositorioSimulado es la
  * función encargada de construir y proporcionar esta dependencia. Es como decir: "Oye Hilt, aquí
  * tienes la instancia lista. Úsala cuando alguien la necesite."
  *
- * @Singleton: es la anotación que le dice a Hilt que la instancia debe ser única dentro del
- * contenedor donde ha sido registrada, por ejemplo SingletonComponent. Hilt mantendrá una única
- * instancia, en este caso, RepositorioSimulado durante toda la vida de la aplicación.
+ * - @Singleton: es la anotación que le dice a Hilt que la instancia debe ser única dentro del
+ * contenedor donde ha sido registrada, SingletonComponent. Hilt mantendrá esta única
+ * instancia, en este caso RepositorioSimulado durante toda la vida de la aplicación.
+ *
  * Es útil cuando queremos que esta clase funcione como un singleton real que se caracterizan por
  * ser reutilizables.
  *
- * Con return estamos creando manualmente la instancia.
+ * - Con return estamos creando manualmente la instancia.
  *
  * Un dato importante: si usamos @Module junto con @Provides, Hilt utilizará lo que retorne esa
  * función como instancia a inyectar.
